@@ -1,4 +1,5 @@
 const fs = require("fs");
+producto = [];
 
 // obtener datos
 const obtData = async (file) => {
@@ -34,7 +35,7 @@ class Contenedor {
     console.log("El archivos es", this.file);
     const id = data.length + 1;
     await setData(this.file, [...data, { ...objeto, id: id }]);
-    return id;
+    console.log("el id del producto agregado es: ", id);
   };
 
   getById = async (id) => {
@@ -58,18 +59,33 @@ class Contenedor {
       throw new Error(`no existe el id ${id}`);
     }
   };
+
+  getAll = async () => {
+    console.log("la lista de productos es: ", await obtData(this.file));
+  };
   deleteAll = async () => {
     await setData(this.file, []);
   };
 }
 const contenedor = new Contenedor("./producto.txt");
 
+// "save" recibe un obejto, lo guarda y devuelve con un console el id
 contenedor.save({
-  title: "titulo Prueba",
+  title: "Durazno",
   price: 200,
-  thumbnail: "https://unsplash.com/photos/s5kTY-Ve1c0",
+  thumbnail: "https://unsplash.com/photos/5GK0KjhBLs4",
 });
 
+// "getById" recibe un id y devuelve el objeto al que le pertence
 contenedor.getById(2);
-// contenedor.deleteById(3);
-// contenedor.deleteAll();
+
+// "getAll" devuelve toda la lista
+contenedor.getAll();
+
+//"deleteAll" elimina toda la lista
+
+// contenedor.deleteAll()
+
+// "deleteById" recibe un id y elimina dicho objeto
+
+// contenedor.deleteById()
