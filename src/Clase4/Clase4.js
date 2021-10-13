@@ -1,63 +1,75 @@
 const fs = require("fs");
 
-const id = [];
-const productos = [];
+// obtener datos
+const obtData = async (file) => {
+  try {
+    const readFile = await fs.promises.readFile(file, "utf-8");
+    if (readFile.length) return await JSON.parse(readFile);
+    else return readFile;
+  } catch (err) {
+    console.log("no se pueden obtener datos", err);
+  }
+};
+
+//setear datos
+const setData = async (file, prod) => {
+  try {
+    await fs.promises.writeFile(file, JSON.stringify(prod, null, "\t"));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//borrar datos con id
+
+const borrarId = (data, id) => {
+  return data.find((item) => item.id === id);
+};
 class Contenedor {
-  constructor(archivo) {
-    this.archivo = archivo;
+  constructor(file) {
+    this.file = file;
   }
-  save(objeto) {
-    let obj = objeto;
-    id.push(1);
-    const acumular = (acu, num) => acu + num;
-    let idReduce = id.reduce(acumular);
-    obj["id"] = idReduce;
-
-    let fileA = fs.appendFileSync(
-      this.archivo,
-      JSON.stringify(obj, null, 2),
-      "utf-8"
-    );
-    console.log(`el Id del obejo es ${idReduce}`);
-  }
-
-  getById = async () => {
-    try {
-      let read = await fs.promises.readFile("./producto.txt", "utf-8");
-      productos.push(read);
-      console.log(productos);
-    } catch (err) {
-      console.log(err);
-    }
+  save = async (objeto) => {
+    let data = await obtData(this.file);
+    console.log("El archivos es", this.file);
+    const id = data.length + 1;
+    await setData(this.file, [...data, { ...objeto, id: id }]);
+    return id;
   };
 
-  getall = async () => {
-    try {
-      let read = await fs.promises.readFile("./producto.txt", "utf-8");
-      console.log("todos los productos encontrasdos son: ", read);
-    } catch (err) {
-      console.log(err);
+  getById = async (id) => {
+    let data = await obtData(this.file);
+    if (data) {
+      console.log(
+        "el articulo buscado es: ",
+        data.find((item) => item.id === id)
+      );
+    } else {
+      throw new Error(`no existe el id ${id}`);
     }
   };
-  deleteall() {
-    fs.unlink("./producto.txt", (err) => {
-      if (err) throw "Error al borrar ";
-    });
-  }
+  deleteById = async (id) => {
+    let data = await obtData(this.file);
+    if (borrarId(data, id)) {
+      const newData = data.filter((item) => item.id !== id);
+      await setData(this.file, newData);
+      console.log("se elimino correctamente");
+    } else {
+      throw new Error(`no existe el id ${id}`);
+    }
+  };
+  deleteAll = async () => {
+    await setData(this.file, []);
+  };
 }
+const contenedor = new Contenedor("./producto.txt");
 
-const producto = new Contenedor("./producto.txt");
+contenedor.save({
+  title: "titulo Prueba",
+  price: 200,
+  thumbnail: "https://unsplash.com/photos/s5kTY-Ve1c0",
+});
 
-producto.save({ title: "escuadra", price: 123.34 });
-
-producto.save({ title: "regla", price: 12.3 });
-
-producto.save({ title: "Lapicera", price: 45.3 });
-
-producto.getById();
-
-producto.getall();
-
-/*borrar producto
-producto.deleteall();
-*/
+contenedor.getById(2);
+// contenedor.deleteById(3);
+// contenedor.deleteAll();
