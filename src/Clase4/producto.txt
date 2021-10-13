@@ -1,9 +1,0 @@
-{
-  "title": "escuadra",
-  "price": 123.34,
-  "id": 1
-}{
-  "title": "regla",
-  "price": 12.3,
-  "id": 2
-}
