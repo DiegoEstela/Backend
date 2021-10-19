@@ -61,31 +61,35 @@ class Contenedor {
   };
 
   getAll = async () => {
-    console.log("la lista de productos es: ", await obtData(this.file));
+    return await obtData(this.file);
   };
   deleteAll = async () => {
     await setData(this.file, []);
   };
 }
+
+module.exports = Contenedor;
 const contenedor = new Contenedor("./producto.txt");
 
+console.log(contenedor.getAll());
+
 // "save" recibe un obejto, lo guarda y devuelve con un console el id
-contenedor.save({
-  title: "Durazno",
-  price: 200,
-  thumbnail: "https://unsplash.com/photos/5GK0KjhBLs4",
-});
+// contenedor.save({
+//   title: "Durazno",
+//   price: 200,
+//   thumbnail: "https://unsplash.com/photos/5GK0KjhBLs4",
+// });
 
-// "getById" recibe un id y devuelve el objeto al que le pertence
-contenedor.getById(2);
+// // "getById" recibe un id y devuelve el objeto al que le pertence
+// contenedor.getById(2);
 
-// "getAll" devuelve toda la lista
-contenedor.getAll();
+// // "getAll" devuelve toda la lista
+// contenedor.getAll();
 
-//"deleteAll" elimina toda la lista
+// //"deleteAll" elimina toda la lista
 
-// contenedor.deleteAll()
+// // contenedor.deleteAll()
 
-// "deleteById" recibe un id y elimina dicho objeto
+// // "deleteById" recibe un id y elimina dicho objeto
 
-// contenedor.deleteById()
+// // contenedor.deleteById()
