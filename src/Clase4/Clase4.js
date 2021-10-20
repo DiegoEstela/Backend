@@ -71,8 +71,6 @@ class Contenedor {
 module.exports = Contenedor;
 const contenedor = new Contenedor("./producto.txt");
 
-console.log(contenedor.getAll());
-
 // "save" recibe un obejto, lo guarda y devuelve con un console el id
 // contenedor.save({
 //   title: "Durazno",

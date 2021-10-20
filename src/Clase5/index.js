@@ -8,21 +8,19 @@ const nexCont = new Contenedor("./producto.txt");
 
 //Ruta /productos
 
-app.get("/productos", (req, res) => {
-  let data = nexCont.getAll();
-  console.log("esta es la data", data);
+app.get("/productos", async (req, res) => {
+  let data = await nexCont.getAll();
+
+  console.log(data);
 
   res.send(data);
 });
 
-//Ruta /productoRandom
-app.get("/productoRandom", (req, res) => {
-  let data = nexCont.getAll();
-  let arr = JSON.parse(data);
-  let index = Math.floor(Math.random() * arr.length);
-  let arrIndex = arr[index];
-
-  res.send(arrIndex);
+// Ruta / productoRandom;
+app.get("/productoRandom", async (req, res) => {
+  let data = await nexCont.getAll();
+  let index = Math.floor(Math.random() * data.length);
+  res.send(data[index]);
 });
 
 //PUERTO
