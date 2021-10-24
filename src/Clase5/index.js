@@ -4,7 +4,13 @@ const app = express();
 const fs = require("fs");
 
 const Contenedor = require("../Clase4/Clase4");
-const nexCont = new Contenedor("./producto.txt");
+const nexCont = new Contenedor("../Clase4/producto.txt");
+
+// Ruta bienvenida
+
+app.post("/", (req, res) => {
+  res.send("Bienvenido a mi API");
+});
 
 //Ruta /productos
 
