@@ -3,4 +3,6 @@
 
 
 
-clase 7 = multer 
+clase 7 = multer handlebars con express
+
+clase 8 = handlebars 
