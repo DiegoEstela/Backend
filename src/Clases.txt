@@ -6,3 +6,5 @@
 clase 7 = multer handlebars con express
 
 clase 8 = handlebars 
+
+clase9= pug
