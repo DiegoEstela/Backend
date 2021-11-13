@@ -27,3 +27,13 @@ title: "Curso Backend"
 
 + Babel
 + TypeScript
+
+
+## Clase 13:   *Node como herramienta de desarrollo*
+
+## Clase 14:   *Webpack*
+
++ Blundler 
++ Loaders
+  
+
