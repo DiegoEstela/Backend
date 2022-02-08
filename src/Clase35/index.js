@@ -3,23 +3,23 @@ const { createTransport } = require("nodemailer");
 
 const app = express();
 
-const TEST_EMAIL = "larue.kessler27@ethereal.email";
+const TEST_EMAIL = "die.estela@gmail.com";
 
 const trasnporter = createTransport({
-  host: "smtp.ethereal.email",
+  host: "gmail",
   port: 587,
   auth: {
     user: TEST_EMAIL,
-    pass: "5zUwX8yQ8X8yQ8X8",
+    pass: "ckurvzbxrjquwxkk",
   },
 });
 
 const mailOptions = {
   from: "servidor node.js",
   to: TEST_EMAIL,
-  subject: "Hello ✔",
+  subject: "Hello",
   text: "Hello world?",
-  html: "<b>Hello world?</b>",
+  html: "Hello world?",
 };
 
 app.post("/email-coder", (req, res) => {
