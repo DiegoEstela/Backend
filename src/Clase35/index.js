@@ -6,7 +6,7 @@ const app = express();
 const TEST_EMAIL = "die.estela@gmail.com";
 
 const trasnporter = createTransport({
-  host: "gmail",
+  service: "gmail",
   port: 587,
   auth: {
     user: TEST_EMAIL,
@@ -22,9 +22,9 @@ const mailOptions = {
   html: "Hello world?",
 };
 
-app.post("/email-coder", (req, res) => {
+app.post("/email-coder", async (req, res) => {
   try {
-    let info = trasnporter.sendMail(mailOptions);
+    let info = await trasnporter.sendMail(mailOptions);
     console.log(info);
     res.send("Email enviado a " + TEST_EMAIL);
   } catch (err) {
